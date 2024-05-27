@@ -1,0 +1,21 @@
+# VERY IMPORTANT, DO ALL STEPS AS WRITTEN
+# update all installed packages
+sudo apt update
+sudo apt dist-upgrade
+
+# remove the jammy-32-7 dist
+sudo rm -f /etc/apt/sources.list.d/theofficialgman-L4T-32-7.list
+
+# temporarily set L4T repo priority higher to force package downgrades
+sudo sed -i 's/511/1001/g' /etc/apt/preferences.d/00-switch-repo-priority
+
+# disable jetson specific configuration scripts
+sudo mkdir -p /opt/nvidia/l4t-packages
+sudo touch /opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall
+
+# downgrade to nvidia-bsp-32-3 meta package, 
+sudo apt install -y -o Dpkg::Options::="--force-confdef" --allow-downgrades nvidia-bsp-32-3
+
+# cleanup and restore repo priority
+sudo rm -rf /opt/nvidia/l4t-packages
+sudo sed -i 's/1001/511/g' /etc/apt/preferences.d/00-switch-repo-priority

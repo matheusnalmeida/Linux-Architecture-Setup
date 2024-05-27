@@ -1,0 +1,34 @@
+################ MODEL INFO #####################
+
+# L4T Model path = /sys/firmware/devicetree/base/model
+# Script to get release + revision full L4T version(reference -> get_nvidia_l4t_version.sh) 
+# Script to get JetPack version from L4T version version(reference -> get_nvidia_jetpack_version.sh) 
+
+#OBS 1: Save scripts on $HOME/Scripts/
+#OBS 2: Give script permission with chmod +x SCRIPT_NAME.sh
+
+################ THERMALS #####################
+# thermals path -> sys/devices/virtual/thermal
+
+################ GPU #####################
+# igpu paths -> sys/class/devfreq
+# switch gpu path -> /sys/class/devfreq/57000000.gpu/device
+# switch gpu freq path -> /sys/class/devfreq/57000000.gpu
+# name of device ->  /sys/class/devfreq/57000000.gpu/device/of_node/name = gpu
+# railgate_enabled(if railgate is disabled, the GPU will not enter a low-power state) -> sys/class/devfreq/57000000.gpu/device/railgate_enable
+# enable_3d_scalling -> sys/class/devfreq/57000000.gpu/device/enable_3d_scalling
+# gpu load -> /sys/class/devfreq/57000000.gpu/device/load divided by 10
+# gpu governor -> /sys/class/devfreq/57000000.gpu/device/devfreq/57000000.gpu/governor
+# gpu current frequency -> /sys/class/devfreq/57000000.gpu/device/devfreq/57000000.gpu/cur_freq divided by 1000 resultado em KHZ(dividir por 1000000 para obter o valor em GHZ)
+# gpu power control -> /sys/class/devfreq/57000000.gpu/power/control
+
+################ FAN #####################
+
+# fan control -> /sys/class/hwmon/hwmon2
+# target_pwm -> /sys/class/hwmon/hwmon2/target_pwm
+# rpm_measured -> /sys/class/hwmon/hwmon2/rpm_measured
+# fan sensor name -> /sys/class/hwmon/hwmon2/name
+# temp_control -> /sys/class/hwmon/hwmon2/temp_control
+# fan profile -> temp_control
+# fan percentage -> /sys/class/hwmon/hwmon2/target_pwm to float * 100 / 255(pwm_cap)
+# fan rpm -> /sys/class/hwmon/hwmon2/rpm_measured
